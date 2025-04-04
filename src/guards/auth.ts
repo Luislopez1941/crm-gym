@@ -3,7 +3,7 @@ import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 
 export function authGuard(
   to: RouteLocationNormalized, 
-  from: RouteLocationNormalized, 
+  _: RouteLocationNormalized, 
   next: NavigationGuardNext
 ) {
   const authStore = useAuthStore();  // Usamos el store

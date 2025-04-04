@@ -18,7 +18,7 @@ const membershipFilter = ref('all');
 
 // Clientes filtrados
 const filteredClients = computed(() => {
-  const clients = [
+  const clients: any = [
   {
     fullName: 'John Doe',
     email: 'johndoe@example.com',
@@ -100,7 +100,7 @@ const filteredClients = computed(() => {
 ];
 
 
-  let result: any = []
+ 
   
   return clients ;
 });
@@ -115,15 +115,15 @@ const editClient = () => {
 };
 
 // Función para confirmar eliminación
-const confirmDelete = (id: number, name: string) => {
+const confirmDelete = (_: number, name: string) => {
   if (confirm(`¿Estás seguro de eliminar al cliente ${name}?`)) {
     clientsStore.modalClients = 'clients__modal';
   }
 };
 
 // Función para cambiar el estado de un cliente
-const changeStatus = (id: any, newStatus: any) => {
- 
+const changeStatus = (_: any, newStatus: any) => {
+ console.log(newStatus)
 };
 
 // Función para limpiar filtros

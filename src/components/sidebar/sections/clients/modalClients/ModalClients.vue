@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useClientsStore } from '@/stores-pinia/Clients';
 
 const clientsStore = useClientsStore();

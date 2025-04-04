@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores-pinia/Guards'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 // import Toast, { POSITION } from "vue-toastification";
 import "vue-toastification/dist/index.css"
-import APis from '@/services/Apis'
+import APis from '@/services/APIs'
 
 
 const email = ref('')

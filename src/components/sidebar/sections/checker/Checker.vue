@@ -30,7 +30,7 @@ const attendanceHistory = ref([
 
 // Estado de verificación de huella
 const fingerprintStatus = ref("Verificado");
-const lastCheckIn = ref("Hoy, 14:30");
+
 
 // Función para formatear fecha
 const formatDate = (dateString: string) => {

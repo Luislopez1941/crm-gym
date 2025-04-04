@@ -28,20 +28,21 @@ const handleSubmit = async () => {
     email: email.value,
     password: password.value,
   };
+  authStore.login({ data, status: true });
+  router.push('/');
+  // try {
+  //   const response: any = await APis.login(data);
 
-  try {
-    const response: any = await APis.login(data);
+  //   const user = response.data.user;
+  //   authStore.setUser(user);
+  //   authStore.login({ user, status: true });
+  //   localStorage.setItem('token', response.data.token);
 
-    const user = response.data.user;
-    authStore.setUser(user);
-    authStore.login({ user, status: true });
-    localStorage.setItem('token', response.data.token);
-
-    // Redirige al usuario
-    router.push('/');
-  } catch (error) {
-    console.error('Error al iniciar sesión:', error);
-  }
+  //   // Redirige al usuario
+  //   router.push('/');
+  // } catch (error) {
+  //   console.error('Error al iniciar sesión:', error);
+  // }
 };
 
 

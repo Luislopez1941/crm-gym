@@ -1,30 +1,8 @@
 <script setup lang="ts">
 import { useInventoryStore } from '@/stores-pinia/Inventory';
-import { ref } from 'vue';
 
 const inventoryStore = useInventoryStore();
 
-// Form data
-const newClient = ref({
-  first_name: '',
-  second_name: '',
-  first_last_name: '',
-  second_last_name: '',
-  profile_image: '',
-  email: '',
-  phone: '',
-  birth_date: '',
-  address: '',
-  type_genre: '',
-  emergency_contact: {
-    name: '',
-    phone: '',
-    relationship: ''
-  },
-  notes: '',
-  coach_id: null,
-  membership_id: null,
-});
 
 
 // Función para limpiar el modal

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, reactive } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 import ModalClients from './modalClients/ModalClients.vue';
 import { useClientsStore } from '@/stores-pinia/Clients';
 
@@ -190,9 +190,6 @@ const openModal = () => {
   clientsStore.modalClients = 'clients__modal';  // Cambia el estado para abrir el modal
 };
 // Función para editar un cliente
-const editClient = () => {
-  clientsStore.modalClients = 'clients__modal';
-};
 
 
 // Función para limpiar filtros

@@ -24,6 +24,7 @@ const newClient = ref({
   notes: '',
   coach_id: null,
   membership_id: null,
+  salary: ''
 });
 
 

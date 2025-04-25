@@ -36,40 +36,92 @@
   --tran-04: all 0.4s ease;
   --tran-05: all 0.4s ease;
 
-    /* modales */
-    --background-modal: rgb(255, 255, 255);
-    --card-modal: #ffffff;
-  
-    
+
+  --color-green: #28a745;
+  /* Success / Active */
+  --color-yellow: #ffc107;
+  /* Warning / Pending */
+  --color-red: #FF5252;
+  /* Error / Cancelled */
+
+  /* Optional: Soft background versions */
+  --color-green-bg: #d4edda;
+  --color-yellow-bg: #fff3cd;
+  --color-red-bg: #f8d7da;
+
+  /* Optional: Text color over each */
+  --color-on-green: #ffffff;
+  --color-on-yellow: #000000;
+  --color-on-red: #ffffff;
 
 
 
-/* //SIDEBAR COLOR */
+  --border-color-header: #f2f2f2;
+  --border-color-sidebar: #f2f2f2;
 
-  --item-hover: #8ac3ef65;
+  /* modales */
+  --background-modal: rgb(255, 255, 255);
+  --card-modal: #ffffff;
 
-  --body-color: #f5f4f1;
-  --sidebar-color: #FFF;
+
+  /*////////////////////////////////// HEADER /////////////////////////////////////*/
+  --color-icon-header: #f5f4f1;
+  --color-text-header: #3a3a3a;
+
+
+  --body-color: #ffffff;
+
+  /* //SIDEBAR COLOR */
+
+  --item-hover: #8ac3ef1a;
+
+  --sidebar-color: #171717;
+  --sidebar-text: #a1a1a1;
+
   --primary-color: #8ac3ef;
 
   --primary-color-light: #F6F5FF;
   --toggle-color: #e4d8d8;
   --text-color: #707070;
+  --text-color-default: #fff;
 
-    /* colores generales  */
-  --input-color:#D9D9D9;
+  /* colores generales  */
+  --input-color: #D9D9D9;
   --close-color: #090d1f;
   --background-color: #D9D9D9;
 
   --border-radius-general: 5px;
 
-   /* color de tablas */
+  /* color de tablas */
   --table-color: #ffffff;
   --table-header-color: #fcfcfc;
   --two-table-color: #ffffff;
   --border-table-color: #f4f4f4;
   --text-table-color: #3d3e42;
   --table-hover-color: #384c67;
+
+  /*/////////////////////////////////////////// BODY ////////////////////////////////////////// */
+  --main-botton: #f0f2f5;
+
+  --main-line: #e5e7eb;
+
+
+  /*///////////////////////////////////////////DASHBOARD ////////////////////////////////////////// */
+  --dash-card: #ffff;
+  --dash-card-icon: #171717;
+  --dash-card-text: #171717;
+  --dash-card-line: #0a0a0a;
+  
+
+  --dash-tab-text: #171717;
+
+  --dash-card-left: #fff;
+  --dash-card-rigth: #fff;
+
+
+
+  --dash-card-left-text: #171717;
+
 
   /* =================== transitions ==================== */
   --tran-03: all 0.2s ease;
@@ -83,37 +135,68 @@
 body {
   height: 100vh;
   background-color: var(--body-color);
-  transition: var(--tran-04);
   font-size: 14px;
 }
 
 body.dark {
+  --primary-100: #8ec2e3;
 
+  --border-color-header: #3f3f3f;
+  --border-color-sidebar: #171717;
 
   /* //SIDEBAR COLOR */
   --background-modal: #1e1e1e;
-    --card-modal: #161616;
+  --card-modal: #161616;
 
   --item-hover: #8ec2e318;
 
   --body-color: #1e1e1e;
   --sidebar-color: #171717;
 
+
+  /*/////////////////////////////////////////// HEADER ////////////////////////////////////////// */
+  --color-icon-header: #171717;
+  --color-text-header: #fff;
+
+
   --primary-color-light: #3A3B3C;
   --toggle-color: #FFF;
-  --text-color: #CCC;
+  --text-color: #707070;
+  --sidebar-text: #a1a1a1;
   --input-color: #27282c;
   --background-color: #1e1e1e;
 
-    /* color de tablas */
-    --table-color: #171717;
-    --table-header-color: #212121;
-    --two-table-color: #ffffff;
-    --border-table-color: #212121;
-    --text-table-color: #3d3e42;
-    --table-hover-color: #384c67;
+  /* color de tablas */
+  --table-header-color: #242424;
+  --table-color: #171717;
+  --two-table-color: #171717;
+  --border-table-color: #212121;
+  --text-table-color: #a1a1a1;
+  --table-hover-color: #384c67;
 
-} 
+  /*/////////////////////////////////////////// BODY ////////////////////////////////////////// */
+  --main-botton: #1a1a1a;
+  --main-line: #0a0a0a;
+
+  /*/////////////////////////////////////////// DASHBOARD ////////////////////////////////////////// */
+  --dash-card: #171717;
+  --dash-card-icon: #8ac3ef;
+  --dash-card-text: #f2f2f2;
+  --dash-card-line: #0a0a0a;
+
+
+  --dash-tab-text: #8ac3ef;
+
+
+  --dash-card-left: #171717;
+  --dash-card-rigth: #171717;
+
+  --dash-card-left-text: #fff;
+
+
+
+
+}
 
 body.dark .switch::before {
   left: 20px;
@@ -121,9 +204,7 @@ body.dark .switch::before {
 
 
 body.dark .sidebar li a:hover .svg-icon,
-body.dark .sidebar li a:hover .text {
-  
-}
+body.dark .sidebar li a:hover .text {}
 
 
 
@@ -141,7 +222,7 @@ body.dark .sidebar li a:hover .text {
 }
 
 .label__general {
-color: var(--text-color);
+  color: var(--text-color);
 }
 
 .inputs__generic {
@@ -165,7 +246,7 @@ color: var(--text-color);
   padding: 10px 0;
   border-radius: 3px;
   text-indent: 15px;
-  
+
 
 }
 
@@ -186,7 +267,7 @@ color: var(--text-color);
 
 .inputs__general:hover {
   outline: 2px solid var(--primary-100);
- 
+
 }
 
 
@@ -229,10 +310,7 @@ color: var(--text-color);
 }
 
 
-.textarea__container {
-
-
-}
+.textarea__container {}
 
 .textarea__general {
   width: 100%;
@@ -249,7 +327,7 @@ color: var(--text-color);
 
 .textarea__general:hover {
   outline: 2px solid var(var(--primary-100));
- 
+
 }
 
 
@@ -325,6 +403,7 @@ color: var(--text-color);
   cursor: pointer;
   border-radius: var(--border-radius-general);
 }
+
 .btn__general_light-danger {
   background-color: var(--danger-color);
   padding: 7px;
@@ -334,3 +413,66 @@ color: var(--text-color);
   border-radius: var(--border-radius-general);
 }
 
+
+
+
+
+
+
+
+/* ////////////////////////////// labels of tables ///////////////////////////////// */
+
+.primary-identifier {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #3d86c62c;
+  border-radius: 5px;
+  font-weight: 600;
+  color: var(--primary-100);
+}
+
+.secondary-identifier {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #ffcc0023;
+  border-radius: 5px;
+  font-weight: 600;
+  color: #c79f02;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+
+
+.tertiary-identifier {
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #ca6d0321;
+  border-radius: 5px;
+  font-weight: 600;
+  color: #ca6d03;
+}
+
+.active-status {
+  padding: 5px 10px;
+  background-color: #4caf4f27;
+  border-radius: 5px;
+  color: #4caf4f;
+  font-weight: 600;
+}
+
+.canceled-status {
+  padding: 5px 10px;
+  background-color: #df49413d;
+  border-radius: 5px;
+  color: #df4941c5;
+  font-weight: 600;
+}

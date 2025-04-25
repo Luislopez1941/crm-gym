@@ -22,6 +22,7 @@ import Header from '@/components/header/Header.vue';
     grid-template-rows: auto 1fr;
     width: 100%;
     height: 100%;
+    overflow: auto;
    
   }
 

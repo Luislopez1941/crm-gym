@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, reactive } from 'vue';
 import ModalClients from './modalClients/ModalClients.vue';
 import { useClientsStore } from '@/stores-pinia/Clients';
 
@@ -16,94 +16,174 @@ const searchQuery = ref('');
 const statusFilter = ref('all');
 const membershipFilter = ref('all');
 
-// Clientes filtrados
-const filteredClients = computed(() => {
-  const clients: any = [
+
+const filteredClients = reactive({
+  clients:[
   {
-    fullName: 'John Doe',
-    email: 'johndoe@example.com',
-    phone: '123-456-7890',
-    birthDate: '1990-05-15',
-    address: '123 Main St, City, Country',
-    membershipType: 'premium',
-    startDate: new Date().toISOString().split('T')[0],
-    endDate: '',
-    emergencyContact: {
-      name: 'Jane Doe',
-      phone: '987-654-3210',
-      relationship: 'Spouse'
-    },
-    healthInfo: {
-      medicalConditions: 'None',
-      allergies: 'Peanuts',
-      medications: 'None'
-    },
-    profileImage: null,
-    paymentMethod: 'credit_card',
-    notes: 'Prefers morning sessions',
-    gender: 'male',
-    membershipFee: 1000,
-    height: '180cm',
-    weight: '75kg',
-    goals: 'Muscle gain',
-    fitnessLevel: 'intermediate',
-    preferredTrainingTime: 'morning',
-    referredBy: 'Friend',
-    occupation: 'Software Engineer',
-    fingerprint: true,
-    accessCardNumber: 'A123456',
-    hasLockerRental: true,
-    lockerNumber: 'L12',
-    personalTrainer: 'Coach Mike',
-    dietaryRestrictions: 'Vegetarian',
-    preferredClasses: ['Yoga', 'CrossFit']
+    id: '1',
+    user_id: 'u1',
+    first_name: 'Valeria',
+    second_name: 'Isabel',
+    first_last_name: 'Montoya',
+    second_last_name: 'López',
+    profile_image: 'https://randomuser.me/api/portraits/women/1.jpg',
+    email: 'valeria.montoya@example.com',
+    phone: '+51 999 123 456',
+    birth_date: new Date('1993-04-22'),
+    address: 'Av. Primavera 123, Lima',
+    type_genre: 'Femenino',
+    emergency_contact_name: 'Carlos López',
+    emergency_contact_number: '+51 999 654 321',
+    emergency_contact_relationship: 'Padre',
+    notes: 'Prefiere clases de yoga.',
+    coach_id: 1,
+    membership_id: 3,
+    type_membership: 'Premium',
+    status: false,
+    expiration: '2024-07-22'
   },
   {
-    fullName: 'Alice Smith',
-    email: 'alicesmith@example.com',
-    phone: '555-123-4567',
-    birthDate: '1985-10-20',
-    address: '456 Another St, City, Country',
-    membershipType: 'basic',
-    startDate: new Date().toISOString().split('T')[0],
-    endDate: '',
-    emergencyContact: {
-      name: 'Bob Smith',
-      phone: '555-987-6543',
-      relationship: 'Brother'
-    },
-    healthInfo: {
-      medicalConditions: 'Asthma',
-      allergies: 'None',
-      medications: 'Inhaler'
-    },
-    profileImage: null,
-    paymentMethod: 'cash',
-    notes: 'Prefers evening workouts',
-    gender: 'female',
-    membershipFee: 500,
-    height: '165cm',
-    weight: '60kg',
-    goals: 'Weight loss',
-    fitnessLevel: 'beginner',
-    preferredTrainingTime: 'evening',
-    referredBy: 'Advertisement',
-    occupation: 'Teacher',
-    fingerprint: false,
-    accessCardNumber: 'B654321',
-    hasLockerRental: false,
-    lockerNumber: '',
-    personalTrainer: '',
-    dietaryRestrictions: 'None',
-    preferredClasses: ['Pilates', 'Spinning']
+    id: '2',
+    user_id: 'u2',
+    first_name: 'Marco',
+    second_name: 'Antonio',
+    first_last_name: 'Paredes',
+    second_last_name: 'Gómez',
+    profile_image: 'https://randomuser.me/api/portraits/men/2.jpg',
+    email: 'marco.paredes@example.com',
+    phone: '+52 555 888 000',
+    birth_date: new Date('1987-10-05'),
+    address: 'Col. Roma Norte, CDMX',
+    type_genre: 'Masculino',
+    emergency_contact_name: 'Laura Gómez',
+    emergency_contact_number: '+52 555 999 111',
+    emergency_contact_relationship: 'Esposa',
+    notes: 'Tiene lesión de rodilla.',
+    coach_id: 2,
+    membership_id: 2,
+    type_membership: 'Premium',
+    status: true,
+    expiration: '2025-01-30'
+  },
+  {
+    id: '3',
+    user_id: 'u3',
+    first_name: 'Sofía',
+    second_name: null,
+    first_last_name: 'Delgado',
+    second_last_name: 'Martínez',
+    profile_image: 'https://randomuser.me/api/portraits/women/3.jpg',
+    email: 'sofia.delgado@example.com',
+    phone: '+57 310 123 9876',
+    birth_date: new Date('1995-01-15'),
+    address: 'Carrera 45, Medellín',
+    type_genre: 'Femenino',
+    emergency_contact_name: 'Andrea Martínez',
+    emergency_contact_number: '+57 310 765 4321',
+    emergency_contact_relationship: 'Madre',
+    notes: 'Alérgica al polvo.',
+    coach_id: null,
+    membership_id: 1,
+    type_membership: 'Premium',
+    status: false,
+    expiration: '2024-10-18'
+  },
+  {
+    id: '4',
+    user_id: 'u4',
+    first_name: 'Luis',
+    second_name: 'Fernando',
+    first_last_name: 'Reyes',
+    second_last_name: 'Quispe',
+    profile_image: 'https://randomuser.me/api/portraits/men/4.jpg',
+    email: 'luis.reyes@example.com',
+    phone: '+56 987 654 321',
+    birth_date: new Date('1982-07-30'),
+    address: 'Calle Central 89, Santiago',
+    type_genre: 'Masculino',
+    emergency_contact_name: 'Paola Quispe',
+    emergency_contact_number: '+56 123 456 789',
+    emergency_contact_relationship: 'Hermana',
+    notes: 'Quiere rutina para perder peso.',
+    coach_id: 3,
+    membership_id: 2,
+    type_membership: 'Premium',
+    status: true,
+    expiration: '2025-05-12'
+  },
+  {
+    id: '5',
+    user_id: null,
+    first_name: 'Camila',
+    second_name: 'Alejandra',
+    first_last_name: 'Torres',
+    second_last_name: 'Zapata',
+    profile_image: 'https://randomuser.me/api/portraits/women/5.jpg',
+    email: 'camila.torres@example.com',
+    phone: '+54 11 4567 8901',
+    birth_date: new Date('2000-11-11'),
+    address: 'Palermo, Buenos Aires',
+    type_genre: 'Femenino',
+    emergency_contact_name: 'Jorge Zapata',
+    emergency_contact_number: '+54 11 1234 5678',
+    emergency_contact_relationship: 'Padre',
+    notes: 'Prefiere entrenamientos al aire libre.',
+    coach_id: null,
+    membership_id: 3,
+    type_membership: 'Premium',
+    status: false,
+    expiration: '2024-12-15'
+  },
+  {
+    id: '6',
+    user_id: 'u6',
+    first_name: 'Jorge',
+    second_name: 'Enrique',
+    first_last_name: 'Navarro',
+    second_last_name: 'Suárez',
+    profile_image: 'https://randomuser.me/api/portraits/men/6.jpg',
+    email: 'jorge.navarro@example.com',
+    phone: '+51 998 776 554',
+    birth_date: new Date('1990-03-18'),
+    address: 'San Miguel, Lima',
+    type_genre: 'Masculino',
+    emergency_contact_name: 'Lucía Suárez',
+    emergency_contact_number: '+51 944 332 110',
+    emergency_contact_relationship: 'Esposa',
+    notes: 'Entrena 3 veces por semana.',
+    coach_id: 2,
+    membership_id: 1,
+    type_membership: 'Premium',
+    status: true,
+    expiration: '2024-11-01'
+  },
+  {
+    id: '7',
+    user_id: null,
+    first_name: 'Natalia',
+    second_name: 'Rocío',
+    first_last_name: 'Jiménez',
+    second_last_name: 'Vega',
+    profile_image: 'https://randomuser.me/api/portraits/women/7.jpg',
+    email: 'natalia.jimenez@example.com',
+    phone: '+57 312 444 2211',
+    birth_date: new Date('1998-05-09'),
+    address: 'Av. Bolívar 321, Bogotá',
+    type_genre: 'Femenino',
+    emergency_contact_name: 'Santiago Vega',
+    emergency_contact_number: '+57 312 333 4444',
+    emergency_contact_relationship: 'Hermano',
+    notes: 'Tiene marcapasos, consultar al médico.',
+    coach_id: 1,
+    membership_id: 2,
+    type_membership: 'Premium',
+    status: false,
+    expiration: '2025-03-15'
   }
-];
-
-
- 
-  
-  return clients ;
+]
 });
+
+
 
 // Función para abrir el modal de registro
 const openModal = () => {
@@ -114,17 +194,6 @@ const editClient = () => {
   clientsStore.modalClients = 'clients__modal';
 };
 
-// Función para confirmar eliminación
-const confirmDelete = (_: number, name: string) => {
-  if (confirm(`¿Estás seguro de eliminar al cliente ${name}?`)) {
-    clientsStore.modalClients = 'clients__modal';
-  }
-};
-
-// Función para cambiar el estado de un cliente
-const changeStatus = (_: any, newStatus: any) => {
- console.log(newStatus)
-};
 
 // Función para limpiar filtros
 const clearFilters = () => {
@@ -133,40 +202,27 @@ const clearFilters = () => {
   membershipFilter.value = 'all';
 };
 
-// Función para formatear fecha
-const formatDate = (dateString: any) => {
-  if (!dateString) return '';
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('es-MX', { 
-    year: 'numeric', 
-    month: '2-digit', 
-    day: '2-digit' 
-  }).format(date);
-};
+
 </script>
 
 <template>
   <div class="clients">
     <div class="clients__container">
       <!-- Header con título y botón de registro -->
-     
-      
+
+
       <!-- Filtros y búsqueda -->
       <div class="clients__filters">
         <div class="search-box">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input 
-            type="text" 
-            placeholder="Buscar por nombre, email o ID..." 
-            v-model="searchQuery"
-            class="search-input"
-          />
+          <input type="text" placeholder="Buscar por nombre, email o ID..." v-model="searchQuery"
+            class="search-input" />
         </div>
-        
+
         <div class="filter-group">
           <div class="filter-select">
             <label for="statusFilter">Estado:</label>
@@ -177,7 +233,7 @@ const formatDate = (dateString: any) => {
               <option value="pending">Pendientes</option>
             </select>
           </div>
-          
+
           <div class="filter-select">
             <label for="membershipFilter">Membresía:</label>
             <select id="membershipFilter" v-model="membershipFilter">
@@ -187,196 +243,109 @@ const formatDate = (dateString: any) => {
               <option value="premium">Premium</option>
             </select>
           </div>
-          
+
           <button class="btn-clear" @click="clearFilters">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
             Limpiar
           </button>
-        
-            <button class="btn-primary" @click="openModal">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              Dar de alta
-            </button>
-    
+
+          <button class="btn-primary" @click="openModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Dar de alta
+          </button>
+
         </div>
       </div>
-      
-      <!-- Tabla de clientes -->
-      <div class="clients__table-container">
-        <!-- Tabla usando divs -->
-        <div class="table-wrapper" v-if="filteredClients.length > 0">
-          <!-- Encabezado de la tabla -->
-          <div class="table-header">
-            <div class="table-cell header-cell">ID</div>
-            <div class="table-cell header-cell">Nombre</div>
-            <div class="table-cell header-cell">Email</div>
-            <div class="table-cell header-cell">Teléfono</div>
-            <div class="table-cell header-cell">Membresía</div>
-            <div class="table-cell header-cell">Vencimiento</div>
-            <div class="table-cell header-cell">Estado</div>
-            <div class="table-cell header-cell">Acciones</div>
+      <div class="row__two">
+        <div class="table__clients">
+          <div class="table__head">
+            <div class="thead">
+              <div class="th">
+                <p>Nombre</p>
+              </div>
+              <div class="th">
+                <p>Email</p>
+              </div>
+              <div class="th">
+                <p>Telefono</p>
+              </div>
+              <div class="th">
+                <p>Membresía</p>
+              </div>
+              <div class="th">
+                <p>Vencimiento</p>
+              </div>
+              <div class="th">
+                <p>Estado</p>
+              </div>
+              <div>
+              </div>
+              <div>
+              </div>
+            </div>
           </div>
-          
-          <!-- Cuerpo de la tabla -->
-          <div class="table-body">
-            <div class="table-row" v-for="client in filteredClients" :key="client.id">
-              <div class="table-cell client-id" data-label="ID">{{ client.id }}</div>
-              <div class="table-cell client-name" data-label="Nombre">
-                <div class="client-avatar" v-if="client.profileImage">
-                  <img :src="client.profileImage" alt="Foto de perfil" />
+          <div class="table__body">
+            <div class="tbody__container" v-for="client in filteredClients.clients" :key="client.id">
+              <div class="tbody">
+                <div class="td">
+                  <p class="primary-identifier">{{ client.first_name }} {{ client.second_name }}
+                    {{ client.first_last_name }} {{ client.second_last_name }}</p>
                 </div>
-                <div class="client-avatar" v-else>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
+                <div class="td email">
+                  <p >{{ client.email }}</p>
+                </div>
+                <div class="td">
+                  <p >{{ client.phone }}</p>
+                </div>
+                <div class="td">
+                  <p class="secondary-identifier">{{ client.type_membership }}</p>
+                </div>
+                <div class="td">
+                  <p class="tertiary-identifier">{{ client.expiration }}</p>
+                </div>
+                <div class="td">
+                  <p class="active-status" v-if="client.status">Activo</p>
+                  <p class="canceled-status" v-else>Inactivo</p>
+                </div>
+                <div class="td edit">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                    <path d="M16 5l3 3" />
                   </svg>
                 </div>
-                {{ client.fullName }}
-              </div>
-              <div class="table-cell" data-label="Email">{{ client.email }}</div>
-              <div class="table-cell" data-label="Teléfono">{{ client.phone }}</div>
-              <div class="table-cell" data-label="Membresía">
-                <span class="badge membership-badge" :class="client.membershipType">
-                  {{ client.membershipType === 'basic' ? 'Básica' : 
-                     client.membershipType === 'standard' ? 'Estándar' : 'Premium' }}
-                </span>
-              </div>
-              <div class="table-cell" data-label="Vencimiento">{{ formatDate(client.endDate) }}</div>
-              <div class="table-cell" data-label="Estado">
-                <span class="badge status-badge" :class="client.status">
-                  {{ client.status === 'active' ? 'Activo' : 
-                     client.status === 'inactive' ? 'Inactivo' : 'Pendiente' }}
-                </span>
-              </div>
-              <div class="table-cell actions-cell" data-label="Acciones">
-                <div class="action-buttons">
-                  <button class="action-btn edit" @click="editClient()" title="Editar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                    </svg>
-                  </button>
-                  
-                  <div class="dropdown">
-                    <button class="action-btn status" title="Cambiar estado">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 9l6 6 6-6"></path>
-                      </svg>
-                    </button>
-                    <div class="dropdown-content">
-                      <button 
-                        @click="changeStatus(client.id, 'active')" 
-                        :class="{ 'active-option': client.status === 'active' }"
-                      >
-                        Activo
-                      </button>
-                      <button 
-                        @click="changeStatus(client.id, 'inactive')" 
-                        :class="{ 'active-option': client.status === 'inactive' }"
-                      >
-                        Inactivo
-                      </button>
-                      <button 
-                        @click="changeStatus(client.id, 'pending')" 
-                        :class="{ 'active-option': client.status === 'pending' }"
-                      >
-                        Pendiente
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <button class="action-btn delete" @click="confirmDelete(client.id, client.fullName)" title="Eliminar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                  </button>
+                <div class="td delete">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                    class="icon icon-tabler icons-tabler-filled icon-tabler-trash">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                      d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" />
+                    <path
+                      d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" />
+                  </svg>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
-        <!-- Estado vacío -->
-        <!-- <div class="empty-state" v-else-if="!clientsStore.isLoading">
-          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" 
-            stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-          <p>No se encontraron clientes</p>
-          <button class="btn-primary" @click="openModal">Registrar Cliente</button>
-        </div> -->
-        
-        <!-- Estado de carga -->
-        <div class="loading-state" v-else>
-          <div class="spinner"></div>
-          <p>Cargando clientes...</p>
-        </div>
       </div>
-      
-      <!-- Estadísticas rápidas -->
-      <!-- <div class="clients__stats" v-if="clientsStore.clients.length > 0">
-        <div class="stat-card">
-          <div class="stat-icon active">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-          </div>
-          <div class="stat-info">
-            <h3>{{ clientsStore.activeClients.length }}</h3>
-            <p>Clientes Activos</p>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon inactive">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <line x1="5" y1="12" x2="13" y2="12"></line>
-            </svg>
-          </div>
-          <div class="stat-info">
-            <h3>{{ clientsStore.inactiveClients.length }}</h3>
-            <p>Clientes Inactivos</p>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon premium">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-            </svg>
-          </div>
-          <div class="stat-info">
-            <h3>{{ clientsStore.clients.filter(c => c.membershipType === 'premium').length }}</h3>
-            <p>Membresías Premium</p>
-          </div>
-        </div>
-      </div> -->
+
+
+
+
     </div>
-    
+
     <!-- Componente Modal -->
     <ModalClients />
   </div>
@@ -390,15 +359,15 @@ const formatDate = (dateString: any) => {
 }
 
 .clients__container {
-  background-color: var(--sidebar-color, #fff);
-  border-radius: var(--border-radius-checker, 12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+  border-radius: 12px;
+
   overflow: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
+
 }
 
 /* Header styles */
@@ -523,402 +492,126 @@ const formatDate = (dateString: any) => {
 
 
 
-/* Estilos para la tabla con divs */
-.clients__table-container {
-  overflow-x: auto;
-  background-color: var(--table-color);
+
+
+
+
+
+
+.table__clients {
+  display: grid;
+  margin-top: 20px;
   border: 2px solid var(--border-table-color);
-  border-radius: var(--border-radius-checker);
-  padding: 0 15px;
+  border-radius: 20px;
 }
 
-.table-wrapper {
+
+.table__clients .table__head {
+  display: flex;
   width: 100%;
+  background-color: var(--table-header-color);
+  border-radius: 20px 20px 0 0;
+}
+
+.table__clients .table__head .thead {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+
 }
 
-.table-header {
-  display: flex;
-  border-bottom: 2px solid #212121;
-}
-
-.table-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.table-row {
-  display: flex;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  transition: background-color 0.2s ease;
-}
-
-.table-row:hover {
-  background-color: rgba(138, 195, 239, 0.1);
-}
-
-.table-cell {
-  padding: 15px;
-  flex: 1;
-  color: var(--text-color, #707070);
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-}
-
-.header-cell {
+.table__clients .table__head .thead {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) 50px 50px;
+  padding: 10px;
+  column-gap: 20px;
   font-weight: 600;
+  color: var(--text-table-color);
 }
 
-/* Ajustes de ancho para columnas específicas */
-.table-cell:nth-child(1) { /* ID */
-  flex: 0 0 60px;
+.table__clients .table__body {
+  overflow: auto;
+  transition-delay: 0.0s;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    height: 100px;
+  }
+
+  &::-webkit-scrollbar-track {
+    /* Para modificar el background */
+  }
 }
 
-.table-cell:nth-child(2) { /* Nombre */
-  flex: 2;
+
+.table__clients .table__body {}
+
+.table__clients .tbody__container {
+  border-top: 2px solid var(--border-table-color);
 }
 
-.table-cell:nth-child(3), /* Email */
-.table-cell:nth-child(4) { /* Teléfono */
-  flex: 1.5;
+.table__clients .tbody__container:nth-child(even) {
+  background-color: var(--table-color);
 }
 
-.table-cell:nth-child(5), /* Membresía */
-.table-cell:nth-child(6), /* Vencimiento */
-.table-cell:nth-child(7) { /* Estado */
-  flex: 1;
+.table__clients .tbody__container:nth-child(odd) {
+  background-color: var(--two-table-color);
 }
 
-.actions-cell {
-  flex: 0 0 120px;
-  justify-content: flex-end;
+.table__clients .tbody__container:first-child {
+  border-top: 2px solid var(--border-table-color);
 }
 
-.client-id {
-  font-family: monospace;
-  font-weight: 600;
-  color: var(--primary-200, #1d75c3) !important;
+.table__clients .tbody__container:last-child {
+  border-bottom: none;
+  border-radius: 0 0 20px 20px;
 }
 
-.client-name {
-  display: flex;
+.table__clients .table__body .tbody {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) 50px 50px;
+  padding: 10px;
+  column-gap: 20px;
   align-items: center;
-  gap: 10px;
+  color: var(--text-table-color);
 }
 
-.client-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: var(--primary-color, #8ac3ef);
+.table__clients .table__body .tbody .td {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  overflow: hidden;
-  flex-shrink: 0;
 }
 
-.client-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.badge {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: var(--border-radius-pill, 30px);
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-align: center;
-}
-
-.membership-badge {
-  min-width: 80px;
-}
-
-.membership-badge.basic {
-  background-color: #e0e0e0;
-  color: #707070;
-}
-
-.membership-badge.standard {
-  background-color: var(--primary-100, #4A90E2);
-  color: white;
-}
-
-.membership-badge.premium {
-  background-color: var(--accent-100, #FFCC00);
-  color: #333;
-}
-
-.status-badge {
-  min-width: 80px;
-}
-
-.status-badge.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.status-badge.inactive {
-  background-color: #F44336;
-  color: white;
-}
-
-.status-badge.pending {
-  background-color: #FF9800;
-  color: white;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.action-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-}
-
-.action-btn.edit {
-  color: var(--primary-100, #4A90E2);
-}
-
-.action-btn.status {
-  color: var(--text-color, #707070);
-}
-
-.action-btn.delete {
-  color: #F44336;
-}
-
-.action-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-/* Dropdown styles */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: var(--sidebar-color, #FFF);
-  min-width: 120px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  border-radius: var(--border-radius-small, 8px);
-  overflow: hidden;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content button {
-  color: var(--text-color, #707070);
-  padding: 10px 15px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  border: none;
-  background: none;
-  width: 100%;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
-}
-
-.dropdown-content button:hover {
-  background-color: var(--primary-color-light, #F6F5FF);
-}
-
-.dropdown-content button.active-option {
-  background-color: var(--primary-color-light, #F6F5FF);
-  color: var(--primary-100, #4A90E2);
-  font-weight: 500;
-}
-
-/* Empty state styles */
-.empty-state {
-  display: flex;
+.table__clients .table__body .tbody .td.email {
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 50px 0;
-  color: var(--text-color, #707070);
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
-.empty-state svg {
-  margin-bottom: 20px;
-  opacity: 0.5;
+.table__clients .table__body .tbody .td.edit {
+  color: var(--primary-100);
 }
 
-.empty-state p {
-  margin-bottom: 20px;
-  font-size: 1.1rem;
-}
-
-/* Loading state styles */
-.loading-state {
+.table__clients .table__body .tbody .td.delete {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 50px 0;
-  color: var(--text-color, #707070);
+  justify-content: end;
+  color: var(--color-red);
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top-color: var(--primary-100, #4A90E2);
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 15px;
+.table__clients .table__body .tbody:hover {
+  background-color: var(--table-hover-color);
+  color: #fff;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.table__clients .table__body .tbody:hover .td>.folio {
+  background-color: #3d86c6;
+  color: #ffffff;
 }
 
-/* Estilos responsivos para la tabla */
-@media (max-width: 992px) {
-  .table-cell {
-    padding: 12px 10px;
-  }
-}
-
-
-@media (max-width: 576px) {
-  .table-cell:before {
-    width: 100px;
-  }
-  
-  .table-cell {
-    padding-left: 120px;
-  }
-}
-/* Responsive styles */
-@media (max-width: 992px) {
-  .clients__filters {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .search-box {
-    max-width: 100%;
-    width: 100%;
-  }
-  
-  .filter-group {
-    width: 100%;
-    justify-content: space-between;
-  }
-}
-
-@media (max-width: 768px) {
-  .clients__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-  
-  .filter-group {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .filter-select {
-    width: 100%;
-  }
-  
-  .filter-select select {
-    flex: 1;
-  }
-  
-  .btn-clear {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .clients__stats {
-    grid-template-columns: 1fr;
-  }
-
-  .table-header {
-    display: none; /* Ocultar encabezado en móvil */
-  }
-  
-  .table-row {
-    flex-direction: column;
-    padding: 15px 0;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  
-  .table-cell {
-    padding: 8px 15px;
-    border-bottom: none;
-    position: relative;
-  }
-  
-  .table-cell:before {
-    content: attr(data-label);
-    position: absolute;
-    left: 15px;
-    width: 120px;
-    font-weight: 600;
-    color: var(--primary-100, #4A90E2);
-  }
-  
-  .table-cell {
-    padding-left: 140px;
-    justify-content: flex-start;
-  }
-  
-  .table-cell:nth-child(1),
-  .table-cell:nth-child(2),
-  .table-cell:nth-child(3),
-  .table-cell:nth-child(4),
-  .table-cell:nth-child(5),
-  .table-cell:nth-child(6),
-  .table-cell:nth-child(7),
-  .table-cell:nth-child(8) {
-    flex: 1;
-  }
-  
-  .actions-cell {
-    justify-content: flex-start;
-  }
-}
-
-@media (max-width: 576px) {
-  .clients {
-    padding: 15px;
-  }
-  
-  .clients__container {
-    padding: 15px;
-  }
+.table__clients .table__body .tbody:hover .td>.total {
+  background-color: #f55041;
+  color: #ffffff;
 }
 </style>

@@ -5,19 +5,14 @@ import { useSidebarStore } from '@/stores-pinia/Sidebar';
 
 const sidebarStore = useSidebarStore();
 
+const statusSubMenu = ref('')
 
-const isToggled = ref(false);
-
-const modeSwitch = () => {
-  isToggled.value = !isToggled.value;
-  if (isToggled.value) {
-    document.body.classList.add("dark");
-  } else {
-    document.body.classList.remove("dark");
-  }
-};
+const openSubMenu = (value: string) => {
+  statusSubMenu.value = statusSubMenu.value === value ? '' : value;
+}
 
 const toggle = ref(false);
+
 const handleClick = () => {
   sidebarStore.toggle();
   toggle.value = !toggle.value;
@@ -66,28 +61,21 @@ const handleClick = () => {
             </li> -->
         <ul class="menu-links">
           <li class="nav-link">
-            <a class="active">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
-                class="icon icon-tabler icons-tabler-filled icon-tabler-layout-dashboard">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path
-                  d="M9 3a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2zm0 12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-2a2 2 0 0 1 2 -2zm10 -4a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2zm0 -8a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-2a2 2 0 0 1 2 -2z" />
-              </svg>
-              <p class="text nav-text">Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-link">
-            <router-link to="/checker">
-              <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                fill="currentColor">
-                <path
-                  d="m438-342 139-139q12-12 29-12t29 12q12 12 12 29t-12 29L466-254q-12 12-28 12t-28-12l-85-85q-12-12-12-29t12-29q12-12 29-12t29 12l55 55ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z" />
-              </svg>
-              <p class="text nav-text">Checador</p>
+            <router-link to="/">
+              <a class="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                  class="icon icon-tabler icons-tabler-filled icon-tabler-layout-dashboard">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M9 3a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2zm0 12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-2a2 2 0 0 1 2 -2zm10 -4a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2zm0 -8a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-2a2 2 0 0 1 2 -2z" />
+                </svg>
+                <p class="text nav-text">Dashboard</p>
+              </a>
             </router-link>
+
           </li>
           <li class="nav-link">
-            <a>
+            <a @click="openSubMenu('sales')">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
                 class="icon icon-tabler icons-tabler-filled icon-tabler-tag">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -95,7 +83,112 @@ const handleClick = () => {
                   d="M11.172 2a3 3 0 0 1 2.121 .879l7.71 7.71a3.41 3.41 0 0 1 0 4.822l-5.592 5.592a3.41 3.41 0 0 1 -4.822 0l-7.71 -7.71a3 3 0 0 1 -.879 -2.121v-5.172a4 4 0 0 1 4 -4zm-3.672 3.5a2 2 0 0 0 -1.995 1.85l-.005 .15a2 2 0 1 0 2 -2" />
               </svg>
               <p class="text nav-text">Ventas</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M6 9l6 6l6 -6" />
+              </svg>
             </a>
+            <div class="sub_menu" :class="{ active: statusSubMenu == 'sales' }">
+              <div>
+                <router-link to="/inventories/products">
+                  <p>Cotizacion</p>
+                </router-link>
+              </div>
+              <div>
+                <router-link to="/inventories/inventory">
+                  <p>Orden de venta</p>
+                </router-link>
+              </div>
+            </div>
+          </li>
+          <li class="nav-link">
+            <a @click="openSubMenu('shopping')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                class="icon icon-tabler icons-tabler-filled icon-tabler-shopping-cart">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M6 2a1 1 0 0 1 .993 .883l.007 .117v1.068l13.071 .935a1 1 0 0 1 .929 1.024l-.01 .114l-1 7a1 1 0 0 1 -.877 .853l-.113 .006h-12v2h10a3 3 0 1 1 -2.995 3.176l-.005 -.176l.005 -.176c.017 -.288 .074 -.564 .166 -.824h-5.342a3 3 0 1 1 -5.824 1.176l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-12.17h-1a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 .883 -.993l.117 -.007h2zm0 16a1 1 0 1 0 0 2a1 1 0 0 0 0 -2zm11 0a1 1 0 1 0 0 2a1 1 0 0 0 0 -2z" />
+              </svg>
+              <p class="text nav-text">Compras</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M6 9l6 6l6 -6" />
+              </svg>
+            </a>
+            <div class="sub_menu" :class="{ active: statusSubMenu == 'shopping' }">
+              <div>
+                <router-link to="/inventories/products">
+                  <p>Requisicion</p>
+                </router-link>
+              </div>
+              <div>
+                <router-link to="/inventories/inventory">
+                  <p>Orden de compra</p>
+                </router-link>
+              </div>
+            </div>
+          </li>
+          <li class="nav-link">
+            <a @click="openSubMenu('inventories')">
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                fill="currentColor">
+                <path
+                  d="M440-91v-366L120-642v321q0 22 10.5 40t29.5 29L440-91Zm80 0 280-161q19-11 29.5-29t10.5-40v-321L520-457v366Zm159-550 118-69-277-159q-19-11-40-11t-40 11l-79 45 318 183ZM480-526l119-68-317-184-120 69 318 183Z" />
+              </svg>
+              <p class="text nav-text">Inventario</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M6 9l6 6l6 -6" />
+              </svg>
+            </a>
+            <div class="sub_menu" :class="{ active: statusSubMenu == 'inventories' }">
+              <div>
+                <router-link to="/inventories/products">
+                  <p>Prodcutos</p>
+                </router-link>
+              </div>
+              <div>
+                <router-link to="/inventories/inventory">
+                  <p>Inventario</p>
+                </router-link>
+              </div>
+            </div>
+          </li>
+          <li class="nav-link">
+            <a @click="openSubMenu('reports')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                class="icon icon-tabler icons-tabler-filled icon-tabler-file-description">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M12 2l.117 .007a1 1 0 0 1 .876 .876l.007 .117v4l.005 .15a2 2 0 0 0 1.838 1.844l.157 .006h4l.117 .007a1 1 0 0 1 .876 .876l.007 .117v9a3 3 0 0 1 -2.824 2.995l-.176 .005h-10a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-14a3 3 0 0 1 2.824 -2.995l.176 -.005zm3 14h-6a1 1 0 0 0 0 2h6a1 1 0 0 0 0 -2m0 -4h-6a1 1 0 0 0 0 2h6a1 1 0 0 0 0 -2" />
+                <path d="M19 7h-4l-.001 -4.001z" />
+              </svg>
+              <p class="text nav-text">Reportes</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M6 9l6 6l6 -6" />
+              </svg>
+            </a>
+            <div class="sub_menu" :class="{ active: statusSubMenu == 'reports' }">
+              <div>
+                <router-link to="/inventories/products">
+                  <p>Prodcutos</p>
+                </router-link>
+              </div>
+              <div>
+                <router-link to="/inventories/inventory">
+                  <p>Inventario</p>
+                </router-link>
+              </div>
+            </div>
           </li>
           <li class="nav-link">
             <router-link to="/clients">
@@ -110,33 +203,32 @@ const handleClick = () => {
           </li>
 
           <li class="nav-link">
-            <a href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-brand-google-analytics">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path
-                  d="M10 9m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v9.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" />
-                <path
-                  d="M17 3m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v15.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" />
-                <path d="M5 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-              </svg>
-              <p class="text nav-text">Dashboard</p>
-            </a>
+            <router-link to="/coaches">
+              <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                  class="icon icon-tabler icons-tabler-filled icon-tabler-barbell">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M4 7a1 1 0 0 1 1 1v8a1 1 0 0 1 -2 0v-3h-1a1 1 0 0 1 0 -2h1v-3a1 1 0 0 1 1 -1" />
+                  <path d="M20 7a1 1 0 0 1 1 1v3h1a1 1 0 0 1 0 2h-1v3a1 1 0 0 1 -2 0v-8a1 1 0 0 1 1 -1" />
+                  <path
+                    d="M16 5a2 2 0 0 1 2 2v10a2 2 0 1 1 -4 0v-4h-4v4a2 2 0 1 1 -4 0v-10a2 2 0 1 1 4 0v4h4v-4a2 2 0 0 1 2 -2" />
+                </svg>
+                <p class="text nav-text">Entrenadores</p>
+              </a>
+            </router-link>
           </li>
-
           <li class="nav-link">
-            <a href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-tag">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M7.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                <path
-                  d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l5.592 -5.592a2.41 2.41 0 0 0 0 -3.408l-7.71 -7.71a2 2 0 0 0 -1.414 -.586h-5.172a3 3 0 0 0 -3 3z" />
-              </svg>
-              <p class="text nav-text">Dashboard</p>
-            </a>
+            <router-link to="/memberships">
+              <a href="#">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                  fill="currentColor">
+                  <path
+                    d="m480-404 60 46q11 9 24 .5t8-22.5l-24-76 67-52q11-9 6-22.5T602-544h-78l-25-77q-5-14-19-14t-19 14l-25 77h-79q-14 0-18.5 13.5T345-508l65 52-24 77q-5 14 7 22.5t24-.5l63-47ZM160-160q-33 0-56.5-23.5T80-240v-135q0-11 7-19t18-10q24-8 39.5-29t15.5-47q0-26-15.5-47T105-556q-11-2-18-10t-7-19v-135q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v135q0 11-7 19t-18 10q-24 8-39.5 29T800-480q0 26 15.5 47t39.5 29q11 2 18 10t7 19v135q0 33-23.5 56.5T800-160H160Z" />
+                </svg>
+                <p class="text nav-text">Membresías</p>
+              </a>
+            </router-link>
+
           </li>
         </ul>
       </div>
@@ -154,27 +246,7 @@ const handleClick = () => {
             <span class="text">Cerrar sesion</span>
           </a>
         </li>
-        <li class="mode">
-          <div class="moon-sun">
-            <svg class="icon icon-tabler icons-tabler-outline icon-tabler-moon moon" xmlns="http://www.w3.org/2000/svg"
-              width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
-            </svg>
-            <svg class="icon icon-tabler icons-tabler-outline icon-tabler-sun sun" xmlns="http://www.w3.org/2000/svg"
-              width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-              <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
-            </svg>
-          </div>
-          <span class="monde-text text">Dark Mode</span>
-          <div @click="modeSwitch" class="toggle-switch">
-            <span class="switch"></span>
-          </div>
-        </li>
+
       </div>
     </div>
   </div>
@@ -183,11 +255,12 @@ const handleClick = () => {
 <style scoped>
 .sidebar {
   height: 100vh;
-  width: 220px;
+  width: 250px;
   padding: 10px 14px;
   background-color: var(--sidebar-color);
   transition: var(--tran-05);
   z-index: 10;
+
 }
 
 
@@ -203,21 +276,25 @@ const handleClick = () => {
 /* ///////////// Reusbale ccs //////////////// */
 
 .sidebar .text {
-  font-size: 16px;
+
   font-weight: 500;
-  color: var(--text-color);
+  color: var(--sidebar-text);
   transition: var(--tran-03);
   white-space: nowrap;
   opacity: 1;
 }
 
 .header-text>svg {
-  color: var(--text-color);
+  color: var(--sidebar-text);
 
 }
 
 
 .sidebar.close .text {
+  opacity: 0;
+}
+
+.sidebar.close .nav-link .icon-tabler-chevron-down {
   opacity: 0;
 }
 
@@ -237,20 +314,67 @@ const handleClick = () => {
 
 .sidebar li .icon {
   min-width: 60px;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
+
+
 }
 
 .sidebar li .icon,
 .sidebar li .text {
-  color: var(--text-color);
+  color: var(--sidebar-text);
 }
+
+
 
 .sidebar .nav-link .icon {
   width: 25px;
   height: 25px;
 }
+
+.sidebar .nav-link {
+  display: block;
+  height: auto;
+
+
+
+}
+
+.sidebar .nav-link:hover {
+  background-color: #1e1e1e
+}
+
+.sidebar .nav-link .sub_menu {
+  display: block;
+  height: 0;
+  opacity: 0;
+  background-color: #1e1e1e;
+  color: #FFF;
+  transition: all 500ms;
+
+}
+
+
+.sidebar .nav-link .sub_menu a {
+  display: none;
+  color: #FFF;
+  padding: 10px;
+}
+
+.sidebar .nav-link .sub_menu.active a {
+  display: block;
+  color: #FFF;
+  padding: 10px;
+}
+
+
+
+.sidebar .nav-link .sub_menu.active {
+  display: block;
+  height: 200px;
+  opacity: 1;
+  padding: 10px;
+}
+
+
 
 
 
@@ -276,7 +400,7 @@ const handleClick = () => {
 
 .sidebar li a {
   width: 100%;
-  height: 100%;
+  height: 50px;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -295,8 +419,10 @@ const handleClick = () => {
 
 .sidebar li:hover svg,
 .sidebar li:hover .text {
-  color: var(--primary-100);
+
+ 
   transition: var(--tran-02);
+  color: var(--primary-color);
 }
 
 
@@ -304,15 +430,18 @@ const handleClick = () => {
 
 
 .sidebar li a.active .text {
-  color: #8ec2e3;
+
+  color: var(--primary-color);
 }
 
 .sidebar li a.active svg {
-  color: #8ec2e3;
+ 
+  color: var(--primary-color);
 }
 
 .sidebar li a.active {
-  color: #8ec2e3;
+
+  color: var(--primary-color);
 }
 
 
@@ -386,7 +515,7 @@ body.dark .sidebar .header .toggle {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20pxyy;
+  gap: 20px;
 
 }
 
@@ -408,7 +537,6 @@ body.dark .sidebar .header .toggle {
 }
 
 .menu-bar .mode .monde-text {
-  font-size: 16px;
   font-weight: 500;
   color: var(--text-color) !important;
 }
@@ -478,7 +606,7 @@ body.dark .sidebar .header .toggle {
   .sidebar.close .header-text>.name {
     color: var(--text-color);
     font-weight: 500;
-    font-size: 1.2rem;
+
     margin-left: 10px;
 
   }

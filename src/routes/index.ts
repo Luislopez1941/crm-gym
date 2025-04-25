@@ -12,15 +12,46 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {
+        path: '/', // Elimina la barra inicial para rutas hijas
+        name: 'dashboard',
+        component: () => import('@/components/sidebar/sections/dashboard/Dashboard.vue'),
+      },
+      {
         path: 'clients', // Elimina la barra inicial para rutas hijas
         name: 'clients',
         component: () => import('@/components/sidebar/sections/clients/Clients.vue'),
       },
-      // {
-      //     // path: 'users', // Elimina la barra inicial para rutas hijas
-      //     // name: 'users',
-      //     // component: () => import('../components/view/users/users.vue'),
-      // },
+      {
+        path: '/coaches',
+        name: 'coaches',
+        component: () => import('@/components/sidebar/sections/coaches/Coaches.vue')
+      },
+      {
+        path: '/memberships',
+        name: 'memberships',
+        component: () => import('@/components/sidebar/sections/memberships/Memberships.vue')
+      },
+      {
+        path: '/sales',
+        name: 'sales',
+        component: () => import('@/components/sidebar/sections/sales/Sales.vue')
+      },
+      {
+        path: '/inventories',
+        name: 'inventories',
+        children: [
+          {
+            path: 'products', // Elimina la barra inicial para rutas hijas
+            name: 'products',
+            component: () => import('@/components/sidebar/sections/inventories/sections/products/Products.vue'),
+          },
+          {
+            path: 'inventory', // Elimina la barra inicial para rutas hijas
+            name: 'inventory',
+            component: () => import('@/components/sidebar/sections/inventories/sections/inventory/Inventory.vue'),
+          }
+        ]
+      },
     ],
   },
   {
@@ -28,6 +59,8 @@ const routes = [
     name: 'checker',
     component: () => import('@/components/sidebar/sections/checker/Checker.vue'),
   },
+
+ 
   {
     path: '/login',
     name: 'login',

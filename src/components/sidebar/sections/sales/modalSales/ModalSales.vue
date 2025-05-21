@@ -16,7 +16,6 @@ const closeModal = () => {
 <template>
   <div class="overlay__sales_modal" :class="{ 'active': salesStore.modalSales === 'sales__modal' }">
     <div class="popup__sales_modal" :class="{ 'active': salesStore.modalSales === 'sales__modal' }">
-
       <div class="sales_modal">
         <div class="header__modal">
           <p class="title__modals">Registrar Nuevo Cliente</p>
@@ -27,11 +26,8 @@ const closeModal = () => {
             </svg>
           </a>
         </div>
-
         <div class="sales_modal">
-       
         </div>
-       
       </div>
     </div>
   </div>

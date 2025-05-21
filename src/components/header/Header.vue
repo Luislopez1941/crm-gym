@@ -98,7 +98,7 @@ const modeSwitch = () => {
 
 .breadcrumbs__container > .title {
     font-size: 1.5rem;
-    color: #f2f2f2;
+    color: var(--text-color);
     font-weight: 600;
 }
 

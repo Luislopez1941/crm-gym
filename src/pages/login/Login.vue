@@ -392,7 +392,7 @@ input[type="email"],
 input[type="password"],
 input[type="text"] {
   width: 100%;
-  padding: 0.9rem 0.9rem 0.9rem 2.8rem;
+  padding: 10px 10px 10px 45px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   font-size: 1rem;
